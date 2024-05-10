@@ -1,6 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { format } from "date-fns";
 
-const Orderlist = ({ orders = [], onDelete, onEdit }) => {
+const Orderlist = ({ orders = [], onDelete }) => {
+  const navigate = useNavigate();
+  const handleEditOrder = (orderId) => {
+    navigate(`/editorder/${orderId}`); // Navigate to edit order page with orderId
+  };
   return (
     <div className="container">
       <table className="table bg-light">
@@ -18,22 +26,20 @@ const Orderlist = ({ orders = [], onDelete, onEdit }) => {
             orders.map((order) => (
               <tr key={order.id}>
                 <td>{order.orderId}</td>
-                <td>{order.orderDate}</td>
+                <td>{format(new Date(order.orderDate), "dd-MM-yyyy")}</td>
                 <td>{order.customerName}</td>
                 <td>{order.amount}</td>
                 <td>
-                  <button
-                    className="btn btn-primary me-2"
-                    onClick={() => onEdit(order)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => onDelete(order.id)}
-                  >
-                    Delete
-                  </button>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    className=" me-2"
+                    onClick={() => handleEditOrder(order._id)}
+                  />
+                  <FontAwesomeIcon
+                    icon={faTrashAlt}
+                    className=" me-2"
+                    onClick={() => onDelete(order._id)}
+                  />
                 </td>
               </tr>
             ))

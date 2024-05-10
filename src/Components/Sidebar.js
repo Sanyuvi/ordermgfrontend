@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div id="sidebar-wrapper">
       <div className="sidebar-heading text-center py-4 text-danger fs-4 fw-bold text-uppercase border-bottom">
@@ -14,8 +16,8 @@ const Sidebar = () => {
           <i className="fas fa-tachometer-alt me-2"></i>DASHBOARD
         </a>
         <a
-          href="#"
           className="list-group-item list-group-item-action bg-transparent text-white fw-bold"
+          onClick={() => navigate("/")}
         >
           <i className="fas fa-project-diagram me-2"></i>ORDERS
         </a>
